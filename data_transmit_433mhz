@@ -1,0 +1,17 @@
+#include <VirtualWire.h>
+
+const int transmitPin = 12; // Define the pin connected to the transmitter module
+
+void setup() {
+  // Initialize the library with the transmit pin
+  vw_set_tx_pin(transmitPin);
+  vw_setup(2000); // Bits per second
+  Serial.begin(9600);
+}
+
+void loop() {
+  const char *message = "Hello, receiver!"; // Text message to send
+  vw_send((uint8_t *)message, strlen(message));
+  vw_wait_tx(); // Wait for the transmission to complete
+  delay(1000); // Delay between transmissions
+}
